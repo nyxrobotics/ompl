@@ -4,7 +4,12 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # force <boost/functional.hpp> to avoid deprecated use of
 # std::unary_function and std::binary_function
-add_compile_definitions(_HAS_AUTO_PTR_ETC=0)
+if(${CMAKE_VERSION} VERSION_GREATER "3.15.0") 
+    add_compile_definitions(_HAS_AUTO_PTR_ETC=0)
+else()
+    add_definitions(-D_HAS_AUTO_PTR_ETC=0)
+endif()
+
 
 if(CMAKE_COMPILER_IS_GNUCXX)
     add_definitions(-W -Wall -Wextra -Wno-system-headers)
